@@ -1,4 +1,4 @@
-FROM alpine:3.20 AS build
+FROM oven/bun:1.3.11-alpine AS build
 
 ENV LANG=C.UTF-8
 
@@ -24,7 +24,7 @@ RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DFFMPEG5=ON \
     && strip /src/bin/vhash \
     && install -D -m 0755 /src/bin/vhash /out/vhash
 
-FROM alpine:3.20 AS artifact
+FROM oven/bun:1.3.11-alpine AS artifact
 RUN apk add --no-cache \
     libstdc++ \
     opencv \
