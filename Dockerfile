@@ -1,4 +1,4 @@
-FROM ubuntu:22.04 AS build
+FROM ubuntu:24.04 AS build
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
@@ -24,8 +24,8 @@ WORKDIR /src
 COPY . .
 RUN rm -rf /src/build /src/bin /src/lib
 
-# Ubuntu 22.04 ships FFmpeg 4.x headers; disable FFmpeg 5-specific code path.
-RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DFFMPEG5=OFF \
+# Ubuntu 24.04 ships FFmpeg 5+/6.x headers; enable FFmpeg 5+ code path.
+RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DFFMPEG5=ON \
     -DCMAKE_C_FLAGS="-O2 -ffile-prefix-map=/src=. -fdebug-prefix-map=/src=." \
     -DCMAKE_CXX_FLAGS="-O2 -ffile-prefix-map=/src=. -fdebug-prefix-map=/src=." \
     && cmake --build build --parallel \
