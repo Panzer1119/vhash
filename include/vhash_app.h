@@ -18,6 +18,7 @@
 #define VHASH_APP_H
 
 #include <string>
+#include <cstdint>
 #include <vector>
 
 namespace vhash {
